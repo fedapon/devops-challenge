@@ -3,7 +3,7 @@ version: "3"
 services:
   frontend:
     build: ./frontend
-    container_name: "chaftech-frontend"
+    container_name: "craftech-frontend"
     ports:
       - 3000:3000
     env_file:
@@ -13,7 +13,7 @@ services:
 
   backend:
     build: ./backend
-    container_name: "chaftech-backend"
+    container_name: "craftech-backend"
     ports:
       - 8000:8000
     env_file:
@@ -23,7 +23,7 @@ services:
 
   database:
     image: postgres
-    container_name: "chaftech-database"
+    container_name: "craftech-database"
     env_file:
       - .database.env
     ports:
