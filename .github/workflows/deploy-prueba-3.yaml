@@ -2,17 +2,16 @@ name: deploy-craftech-nginx
 
 on:
   push:
-    branches:
-      - master
-    paths:
-      - "prueba-3/**"
+    branches: ["main"]
+    paths: ["prueba-3/**"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: cd prueba-3 && docker build -t fedapon/craftech-nginx .
+      - name: Build the Docker image
+        run: docker build . --file=/prueba-3/Dockerfile --tag fedapon/craftech-nginx
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
