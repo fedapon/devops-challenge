@@ -3,7 +3,9 @@ name: deploy-craftech-nginx
 on:
   push:
     branches: ["main"]
-    paths: ["prueba-3/**", "!README.md"]
+    paths:
+      - "prueba-3/**"
+      - "!prueba-3/README.md"
 
 jobs:
   build:
