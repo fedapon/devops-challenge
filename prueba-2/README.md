@@ -14,6 +14,8 @@ Se observó que el proyecto está realizado en javascript con tecnologías como 
 
 Dentro de la carpeta /config hubo que corregir los archivos de webpack en varios lugares donde la url apuntaba a un IP "0.0.0.0" por el de "localhost".
 
+Inicialmente la imagen creada se servía mediante el servidor de desarrollo ("yarn run start") lo que no era eficiente en cuanto a tamaño y velocidad de arranque de un contenedor. Por lo tanto, dado que una vez hecho el build con webpack los archivos a servir eran estáticos, se procedió a modificar el Dockerfile para generar la imagen en 2 etapas: una que haga el build con node:14-alpine, y una segunda a partir de una imagen de **nginx** donde se copiaban los archivos generados en la etapa de build. Para que esto funcione hubo que modificar en el archivo webpack.config.prod.js cambiando el publicPath (línea 20) a "/" para que los links en los archivos generados no presenten ningún error. 
+
 ##### Backend
 
 Se encontró que la versión de Djando utilizada es la 2.1.4. Esta versión está deprecada y no debería utilizarse por motivos de seguridad. Sin embargo, para no realizar una migración del proyecto, se procedió verificar la documentación y se encontró que esta versión es compatible con las versiones de Python 3.5, 3.6 y 3.7, por lo que se seleccionó la versión 3.7 para construir el Dockerfile. Además, según las dependencias que tenía el proyecto se dedujo que el motor de la base de datos utilizado es posgres. 

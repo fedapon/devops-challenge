@@ -10,6 +10,14 @@ COPY . .
 
 RUN yarn run build
 
-EXPOSE 3000
+###################################
 
-CMD ["yarn", "run", "start"]
+FROM nginx as runner
+
+WORKDIR /usr/share/nginx/html
+
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=builder /assets/bundles .
+
+EXPOSE 3000
