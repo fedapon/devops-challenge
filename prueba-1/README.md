@@ -18,6 +18,8 @@ El diagrama debe hacer un mejor uso de las soluciones distribuidas.
 
 ![Diagrama de Red en AWS](https://github.com/fedapon/devops-challenge/blob/main/prueba-1/Craftech%20Challenge%20-%20Diagrama%20de%20Red.png)
 
+El diagrama de red propuesto consta de una única región con 2 zonas de disponibilidad (AZ) con lo que se logra alta disponibilidad y escalado horizontal variable de acuerdo a la carga de trabajo (auto scaling).
+
 Los servicios utilizados son:
 
 #### AWS Route 53
@@ -48,9 +50,7 @@ Estos dos servicios de base de datos se encontrarán dentro de la subred privada
 
 La RDS se configura como multi-AZ, es decir que se mantiene una base de datos maestra y se replican los datos a las esclavas. En caso de falla de la AZ donde se encuentra la base de datos maestra, automáticamente la esclava pasará a ser la maestra, por lo que el servicio no es interrumpido.
 
-Con respecto a DynamoDB, dado que es una base de datos no relacional serverless, AWS se encarga de mantiene sincronizada entre las distintas AZ dentro de la región definida.
-
-###### 
+Con respecto a DynamoDB, dado que es una base de datos no relacional serverless, AWS se encarga de mantiene sincronizado los datos dentro de la región.
 
 
 
