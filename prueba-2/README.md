@@ -38,27 +38,27 @@ Se debe tener instalado docker y docker-compose.
 
 1. Clonamos el repositorio y accedemos a la carpeta **prueba-2**:
 
-​ `git clone https://github.com/fedapon/devops-challenge.git`
+`git clone https://github.com/fedapon/devops-challenge.git`
 
-​ `cd devops-challenge/prueba-2`
+`cd devops-challenge/prueba-2`
 
 2. Ejecutamos docker-compose para iniciar el proceso de despliegue:
 
-​ `docker-compose -d`
+`docker-compose -d`
 
 3. Ejecutamos las migraciones en la base de datos y creamos el usuario administrador. Para ello nos conectaremos primero a la consola del contenedor que está corriendo el backend.
 
-​ `docker exec -it craftech-backend /bin/sh`
+`docker exec -it craftech-backend /bin/sh`
 
 Una vez conectados, ejecutaremos los siguientes comandos para crear la estructura del proyecto en la base de datos :
 
-​ `python manage.py makemigrations`
+`python manage.py makemigrations`
 
-`	python manage.py migrate`
+`python manage.py migrate`
 
 Y finalmente crearemos el usuario administrador:
 
-​ `	python manage.py createsuperuser`
+`python manage.py createsuperuser`
 
 Se nos solicitará un nombre de usuario, email y contraseña. Anotarlas ya que se solicitaran en el momento de que el frontend se comunique con el backend.
 
@@ -78,19 +78,19 @@ Para este despliegue utilizaremos un cluster administrado por el servicio de ECS
 
 2. Antes de continuar publicaremos en docker hub las imágenes del proyecto para el frontend y el backend. Para ello haremos
 
-​ `docker build --tag fedapon/craftech-frontend /frontend`
+`docker build --tag fedapon/craftech-frontend /frontend`
 
-​ `docker build --tag fedapon/craftech-backend /backend`
+`docker build --tag fedapon/craftech-backend /backend`
 
 Es muy importante reemplazar fedapon por su nombre de usuario para poder subir las imágines a su repositorio.
 
 3. A continuación nos loguearemos en docker hub y procederemos a subir las imágene.
 
-​ `docker login`
+`docker login`
 
-​ `docker push fedapon/craftech-frontend `
+`docker push fedapon/craftech-frontend `
 
-​ `docker push fedapon/craftech-backend `
+`docker push fedapon/craftech-backend `
 
 4. Una vez que las imágenes ya están disponibles en docker hub, volvemos a la consola de AWS para definir las tareas. En este caso definiremos las imágenes que acabamos de crear para el frontend y el backend, y para la base de datos, la imagen será simplemente posgres. A las variables de entorno los cargaremos ahí (cada tarea con sus respectivas variables de entorno). Y en red seleccionaremos el modo "bridge" que nos permitirá exponer directamente los puertos utilizados en la instancia que esté corriendo.
 
