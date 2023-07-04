@@ -8,13 +8,13 @@ La solución al ejercicio debe mostrarnos que usted puede:
 
 Automatizar la parte del proceso de despliegue. Usar conceptos de CI para aprovisionar el software necesario para que los entregables que se ejecuten usen cualquier herramienta de CI de su elección para implementar el entregable.
 
-
-
 ### Solución propuesta:
 
 Dado que el código de challenge se encontraba en Github y luego hice un fork del mismo a mi usuario, para la implementación de esta prueba utilicé Github Actions.
 
 El despliegue lo realicé en una instancia EC2 de AWS al que le instalé Docker trabajando en modo Swarm. Docker Swarm permite la actualización de la imagen sin tener pérdida de servicio, ya que primero inicializa el nuevo contenedor y una vez que está operativo se elimina el anterior.
+
+El proyecto se encontrará disponible solo por un tiempo en http://craftech.blackbird.ar
 
 #### Descripción del workflow
 
@@ -30,11 +30,6 @@ En este ejemplo el comando para la creación del servicio (realizado conectándo
 
 `docker service create -d --name craftech-nginx -p 80:80 fedapon/craftech-nginx`
 
-El comando ejecutado por el job deploy  que actualiza la imagen del servicio es:
+El comando ejecutado por el job deploy que actualiza la imagen del servicio es:
 
 `docker service update -d --update-order start-first --image fedapon/craftech-nginx craftech-nginx`
-
-
-
-
-
